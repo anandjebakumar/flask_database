@@ -3,12 +3,15 @@ from dotenv import load_dotenv
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 load_dotenv(os.path.join(basedir, '.env'))
-print(basedir)
 
 class Config():
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-        'sqlite:///' + os.path.join(basedir, 'app.db')
+
+    # General config
+    SECRET_KEY = os.environ.get('SECRET_KEY')
+    FLASK_APP = 'wsgi.py'
+    FLASK_ENV = 'development'
+
+    # Database
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
+    SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    
-config = Config()
-print(config.SQLALCHEMY_DATABASE_URI)
